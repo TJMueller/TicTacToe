@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D72i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -90,7 +90,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="b9s-eU-hIl" appends="YES" id="XGX-y8-3ZG"/>
                             <outletCollection property="gestureRecognizers" destination="KgX-Kv-UJL" appends="YES" id="2xo-UM-RI1"/>
                         </connections>
                     </view>
@@ -117,11 +116,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="b9s-eU-hIl">
-                    <connections>
-                        <action selector="onLabelTapped:" destination="vXZ-lx-hvc" id="8mK-ZZ-Z0g"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="b9s-eU-hIl"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="KgX-Kv-UJL">
                     <connections>
                         <action selector="onPanComplete:" destination="vXZ-lx-hvc" id="yc0-iD-qLN"/>
