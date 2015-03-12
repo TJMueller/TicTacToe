@@ -42,7 +42,7 @@
 
 - (void)findLabelUsingPoint:(CGPoint)point {
     for (UILabel *label in self.labels) {
-        if (CGRectContainsPoint(label.frame, point)) {
+        if (CGRectContainsPoint(label.frame, point) && [label.text isEqual: @""]) {
             self.currentTappedLabel = label;
             return;
         }
@@ -62,11 +62,34 @@
 
     self.currentTappedLabel.text = (self.currentPlayer? @"X":@"O");
     self.currentTappedLabel.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
+    self.whichPlayerLabel.textColor = (!self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
     self.currentPlayer = self.currentPlayer == false;
     self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
 
 
+}
+
+
+- (void)checkForWinner {
+    BOOL isWinner = false;
+    if (self.LabelOne.text == self.LabelTwo.text && self.LabelTwo == self.LabelThree) {
+        <#statements#>
+    }
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
