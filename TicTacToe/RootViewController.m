@@ -103,6 +103,7 @@
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"New Game", nil];
     [alert show];
+        return;
     }
     [self onAITurn];
 }
