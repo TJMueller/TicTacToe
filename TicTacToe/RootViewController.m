@@ -139,6 +139,9 @@
     for (UILabel *label in self.labels) {
         label.text = @"";
     }
+    self.whichPlayerLabel.text = @"O";
+    self.whichPlayerLabel.textColor = [UIColor redColor];
+    self.currentPlayer = false;
 
 }
 
