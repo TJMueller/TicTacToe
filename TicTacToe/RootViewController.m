@@ -21,7 +21,13 @@
 @property (strong, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 
 @property CGPoint pointOfTap;
+
+@property UILabel *currentTappedLabel;
+
 @property (nonatomic, strong) IBOutletCollection(UILabel) NSArray *labels;
+
+@property BOOL currentPlayer;
+
 
 @end
 
@@ -30,28 +36,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
-
-
 }
 
 
 
 - (void)findLabelUsingPoint:(CGPoint)point {
     for (UILabel *label in self.labels) {
-        NSLog(label.text);
+        if (CGRectContainsPoint(label.frame, point)) {
+            self.currentTappedLabel = label;
+            return;
+        }
+        self.currentTappedLabel = nil;
     }
-
-
-
 }
-
 
 
 - (IBAction)onLabelTapped:(UITapGestureRecognizer *)sender {
 
     self.pointOfTap = [sender locationInView:self.view];
+    // ? allows for an if statement if true x if false O
     [self findLabelUsingPoint:self.pointOfTap];
+    if (self.currentTappedLabel == nil) {
+        return;
+    }
+
+    self.currentTappedLabel.text = (self.currentPlayer? @"X":@"O");
+    self.currentTappedLabel.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
+    self.currentPlayer = self.currentPlayer == false;
+    self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
 
 
 
