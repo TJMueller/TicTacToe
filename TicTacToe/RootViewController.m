@@ -65,6 +65,7 @@
     self.whichPlayerLabel.textColor = (!self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
     self.currentPlayer = self.currentPlayer == false;
     self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
+    [self checkForWinner];
 
 
 }
@@ -72,8 +73,21 @@
 
 - (void)checkForWinner {
     BOOL isWinner = false;
-    if (self.LabelOne.text == self.LabelTwo.text && self.LabelTwo == self.LabelThree) {
-        <#statements#>
+    if (self.LabelOne.text == self.LabelTwo.text && self.LabelTwo.text == self.LabelThree.text && ![self.LabelOne.text  isEqual: @""])
+    {
+        isWinner = true;
+    }
+    if (isWinner)
+    {
+
+    NSString *currentPlayerString = (!self.currentPlayer? @"X":@"O");
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner"
+                                                    message:[NSString stringWithFormat:@"The Winner is %@", currentPlayerString]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"New Game", nil];
+    [alert show];
     }
 
 
