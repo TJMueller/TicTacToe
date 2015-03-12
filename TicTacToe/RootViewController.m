@@ -8,7 +8,7 @@
 
 #import "RootViewController.h"
 
-@interface RootViewController ()
+@interface RootViewController () <UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *LabelOne;
 @property (strong, nonatomic) IBOutlet UILabel *LabelTwo;
 @property (strong, nonatomic) IBOutlet UILabel *LabelThree;
@@ -73,7 +73,7 @@
 
 - (void)checkForWinner {
     BOOL isWinner = false;
-    if (self.LabelOne.text == self.LabelTwo.text && self.LabelTwo.text == self.LabelThree.text && ![self.LabelOne.text  isEqual: @""])
+    if (self.LabelOne.text == self.LabelTwo.text && self.LabelTwo.text == self.LabelThree.text && ![self.LabelOne.text isEqual: @""])
     {
         isWinner = true;
     }
@@ -94,13 +94,31 @@
 
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self startNewGame];
+    }
+}
+
+
+- (void)startNewGame {
+    for (UILabel *label in self.labels) {
+        label.text = @"";
+    }
+
+}
+
+
+- (IBAction)onPanComplete:(UIPanGestureRecognizer *)gestureRecognizer {
+    self.pointOfTap = [gestureRecognizer locationInView:self.view];
+    [self findLabelUsingPoint:self.pointOfTap];
+    if (self.currentTappedLabel == nil) {
+        return;
+    }
 
 
 
-
-
-
-
+}
 
 
 
