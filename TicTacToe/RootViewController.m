@@ -331,7 +331,6 @@
         self.timerInt -= 1;
         self.timerLabel.text = [NSString stringWithFormat:@"%i", self.timerInt];
         if (self.timerInt == 0) {
-            [self.timer invalidate];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time's Up"
                                                             message:@"You Lose!"
                                                            delegate:self
@@ -350,6 +349,14 @@
 -(void)resetTimer{
     self.timerInt = 10;
     [self countDown];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    self.shouldCountDown = NO;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    self.shouldCountDown = YES;
 }
 
 - (void)didPresentAlertView:(UIAlertView *)alertView {

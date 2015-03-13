@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self goToURLString:@"http://www.mobilemakers.co"];
+    [self goToURLString:@"http://en.wikipedia.org/wiki/Tic-tac-toe"];
     self.webView.delegate = self;
 }
 - (void)goToURLString:(NSString *)string {
