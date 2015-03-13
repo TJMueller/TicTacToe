@@ -39,6 +39,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *timerLabel;
 
 @property BOOL catsGame;
+@property BOOL shouldCountDown;
 
 @end
 
@@ -52,6 +53,7 @@
     self.combinationArray = [NSArray arrayWithObjects:@"123", @"147", @"159", @"258", @"357", @"369", @"456", @"789", nil];
     self.currentMoves = [[NSMutableArray alloc] init];
     [self startTimer];
+    self.shouldCountDown = YES;
 
 
 }
@@ -157,6 +159,7 @@
     self.currentPlayer = false;
     self.timerLabel.text = @"10";
     self.catsGame = false;
+    self.shouldCountDown = YES;
 
 }
 
@@ -323,23 +326,35 @@
 }
 
 -(void)countDown {
-    self.timerInt -= 1;
-    self.timerLabel.text = [NSString stringWithFormat:@"%i", self.timerInt];
-    if (self.timerInt == 0) {
-        [self.timer invalidate];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time's Up"
-                                                        message:@"You Lose!"
-                                                       delegate:self
-                                              cancelButtonTitle:@"New Game"
-                                              otherButtonTitles:nil];
-        [alert show];
+    if (self.shouldCountDown) {
+        self.timerInt -= 1;
+        self.timerLabel.text = [NSString stringWithFormat:@"%i", self.timerInt];
+        if (self.timerInt == 0) {
+            [self.timer invalidate];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time's Up"
+                                                            message:@"You Lose!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"New Game"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [self didPresentAlertView:alert];
+        } else{
+            self.timerInt -= 0;
+            self.timerLabel.text = [NSString stringWithFormat:@"%i", self.timerInt];
+        }
 
     }
-
 }
+
 -(void)resetTimer{
     self.timerInt = 10;
     [self countDown];
 }
+
+- (void)didPresentAlertView:(UIAlertView *)alertView {
+    self.shouldCountDown = NO;
+}
+
+
 
 @end
