@@ -38,6 +38,7 @@
 @property NSTimer *timer;
 @property (strong, nonatomic) IBOutlet UILabel *timerLabel;
 
+@property BOOL catsGame;
 
 @end
 
@@ -128,6 +129,7 @@
     }
     if (isCats)
     {
+        self.catsGame = true;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cats Game"
                                                         message:@"It's a Draw"
                                                        delegate:self
@@ -153,6 +155,7 @@
     self.whichPlayerLabel.textColor = [UIColor redColor];
     self.currentPlayer = false;
     self.timerLabel.text = @"10";
+    self.catsGame = false;
 
 }
 
@@ -185,6 +188,7 @@
 {
     if (self.currentPlayer) {
         [self checkForCatsGame];
+        if (self.catsGame == false) {
 
         [self getCurrentMoves];
 
@@ -213,7 +217,7 @@
         self.whichPlayerLabel.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
         [self checkForWinner];
         return;
-
+        } 
 
         //for (UILabel *label in self.labels) {
             //if ([label.text isEqual: @""]) {
