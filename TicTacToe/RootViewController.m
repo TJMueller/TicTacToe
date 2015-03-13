@@ -51,6 +51,7 @@
     self.originalCenter = self.whichPlayerLabel.center;
     self.combinationArray = [NSArray arrayWithObjects:@"123", @"147", @"159", @"258", @"357", @"369", @"456", @"789", nil];
     self.currentMoves = [[NSMutableArray alloc] init];
+    [self startTimer];
 
 
 }
@@ -84,7 +85,7 @@
     self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
     [self checkForWinner];
     [self checkForCatsGame];
-    //[self startTimer];
+    [self resetTimer];
 
 
 
@@ -216,8 +217,9 @@
         self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
         self.whichPlayerLabel.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
         [self checkForWinner];
+        [self resetTimer];
         return;
-        } 
+        }
 
         //for (UILabel *label in self.labels) {
             //if ([label.text isEqual: @""]) {
