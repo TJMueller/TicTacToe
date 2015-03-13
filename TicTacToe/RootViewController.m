@@ -84,7 +84,7 @@
     self.currentPlayer = self.currentPlayer == false;
     self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
     [self checkForWinner];
-    [self checkForCatsGame];
+    //[self checkForCatsGame];
     [self resetTimer];
 
 
@@ -341,16 +341,5 @@
     self.timerInt = 10;
     [self countDown];
 }
-
-
-
-
-
-
-
-
-
-
-
 
 @end
