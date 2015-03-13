@@ -157,6 +157,8 @@
     self.currentPlayer = false;
     self.timerLabel.text = @"10";
     self.catsGame = false;
+    [self resetTimer];
+
 
 }
 
@@ -247,11 +249,11 @@
 }
 
 - (int)checkForWinningMove {
-    return [self checkForMove:@"OO"];
+    return [self checkForMove:@"XX"];
 }
 
 - (int)checkForBlockingMove {
-    return [self checkForMove:@"XX"];
+    return [self checkForMove:@"OO"];
 }
 
 - (int)checkForMove:(NSString *)winBlockString {
@@ -326,7 +328,7 @@
     self.timerInt -= 1;
     self.timerLabel.text = [NSString stringWithFormat:@"%i", self.timerInt];
     if (self.timerInt == 0) {
-        [self.timer invalidate];
+        
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time's Up"
                                                         message:@"You Lose!"
                                                        delegate:self
