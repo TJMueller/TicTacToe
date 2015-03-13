@@ -160,6 +160,7 @@
     self.timerLabel.text = @"10";
     self.catsGame = false;
     self.shouldCountDown = YES;
+    [self resetTimer];
 
 }
 
@@ -250,11 +251,11 @@
 }
 
 - (int)checkForWinningMove {
-    return [self checkForMove:@"OO"];
+    return [self checkForMove:@"XX"];
 }
 
 - (int)checkForBlockingMove {
-    return [self checkForMove:@"XX"];
+    return [self checkForMove:@"OO"];
 }
 
 - (int)checkForMove:(NSString *)winBlockString {
