@@ -34,6 +34,10 @@
 
 @property NSMutableArray *currentMoves;
 
+@property int timerInt;
+@property NSTimer *timer;
+@property (strong, nonatomic) IBOutlet UILabel *timerLabel;
+
 
 @end
 
@@ -79,6 +83,7 @@
     self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
     [self checkForWinner];
     [self checkForCatsGame];
+    [self startTimer];
 
 
 
@@ -105,8 +110,8 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Winner"
                                                     message:[NSString stringWithFormat:@"The Winner is %@", currentPlayerString]
                                                    delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"New Game", nil];
+                                          cancelButtonTitle:@"New Game"
+                                          otherButtonTitles:nil];
     [alert show];
         return;
     }
@@ -126,15 +131,15 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cats Game"
                                                         message:@"It's a Draw"
                                                        delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"New Game", nil];
+                                              cancelButtonTitle:@"New Game"
+                                              otherButtonTitles: nil];
         [alert show];
     }
 }
 
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
+    if (buttonIndex == 0) {
         [self startNewGame];
     }
 }
@@ -147,6 +152,7 @@
     self.whichPlayerLabel.text = @"O";
     self.whichPlayerLabel.textColor = [UIColor redColor];
     self.currentPlayer = false;
+    self.timerLabel.text = @"10";
 
 }
 
@@ -181,10 +187,10 @@
 
         [self getCurrentMoves];
 
-        int winningMove = [self checkForWinningMove];
-        int blockingMove = [self checkForBlockingMove];
-        int centerMove = [self checkForCenterMove];
-        int nextMove = [self checkForNextMove];
+//        int winningMove = [self checkForWinningMove];
+//        int blockingMove = [self checkForBlockingMove];
+//        int centerMove = [self checkForCenterMove];
+//        int nextMove = [self checkForNextMove];
 
 
         for (UILabel *label in self.labels) {
@@ -285,8 +291,35 @@
 
 
 
+-(void)startTimer {
+    self.timerInt = 10;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                  target:self
+                                                selector:@selector(countDown)
+                                                userInfo:nil
+                                                 repeats:YES];
 
+}
 
+-(void)countDown {
+    self.timerInt -= 1;
+    self.timerLabel.text = [NSString stringWithFormat:@"%i", self.timerInt];
+    if (self.timerInt == 0) {
+        [self.timer invalidate];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Time's Up"
+                                                        message:@"You Lose!"
+                                                       delegate:self
+                                              cancelButtonTitle:@"New Game"
+                                              otherButtonTitles:nil];
+        [alert show];
+
+    }
+
+}
+-(void)resetTimer{
+    self.timerInt = 10;
+    [self countDown];
+}
 
 
 
