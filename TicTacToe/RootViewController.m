@@ -83,7 +83,7 @@
     self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
     [self checkForWinner];
     [self checkForCatsGame];
-    [self startTimer];
+    //[self startTimer];
 
 
 
@@ -184,27 +184,41 @@
 - (void) onAITurn
 {
     if (self.currentPlayer) {
+        [self checkForCatsGame];
 
         [self getCurrentMoves];
 
-//        int winningMove = [self checkForWinningMove];
-//        int blockingMove = [self checkForBlockingMove];
-//        int centerMove = [self checkForCenterMove];
-//        int nextMove = [self checkForNextMove];
+        int moveToMake = 0;
+        int winningMove = [self checkForWinningMove];
+        int blockingMove = [self checkForBlockingMove];
+        int centerMove = [self checkForCenterMove];
+        int nextMove = [self checkForNextMove];
 
-
-        for (UILabel *label in self.labels) {
-            if ([label.text isEqual: @""]) {
-                label.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
-                label.text = (self.currentPlayer? @"X":@"O");
-                self.currentPlayer = self.currentPlayer == false;
-                self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
-                self.whichPlayerLabel.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
-                [self checkForWinner];
-                [self checkForCatsGame];
-                return;
-            }
+        if (winningMove > 0) {
+            moveToMake = winningMove;
+        } else if (blockingMove > 0) {
+            moveToMake = blockingMove;
+        } else if (centerMove > 0) {
+            moveToMake = centerMove;
+        } else {
+            moveToMake = nextMove;
         }
+
+        UILabel *label = ((UILabel *)[self.labels objectAtIndex:moveToMake - 1]);
+
+        label.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
+        label.text = (self.currentPlayer? @"X":@"O");
+        self.currentPlayer = self.currentPlayer == false;
+        self.whichPlayerLabel.text = (self.currentPlayer? @"X":@"O");
+        self.whichPlayerLabel.textColor = (self.currentPlayer? [UIColor blueColor]:[UIColor redColor]);
+        [self checkForWinner];
+        return;
+
+
+        //for (UILabel *label in self.labels) {
+            //if ([label.text isEqual: @""]) {
+            //}
+        //}
     }
 }
 
@@ -276,7 +290,8 @@
 
 - (void)getCurrentMoves {
     // loads all current moves into an array
-    // @"123", @"147", @"159", @"258", @"357", @"369", @"456", @"789"    [self.currentMoves removeAllObjects];
+    // @"123", @"147", @"159", @"258", @"357", @"369", @"456", @"789"
+    [self.currentMoves removeAllObjects];
     [self.currentMoves addObject:[NSString stringWithFormat:@"%@%@%@", self.LabelOne.text, self.LabelTwo.text, self.LabelThree.text ]];
     [self.currentMoves addObject:[NSString stringWithFormat:@"%@%@%@", self.LabelOne.text, self.LabelFour.text, self.LabelSeven.text ]];
     [self.currentMoves addObject:[NSString stringWithFormat:@"%@%@%@", self.LabelOne.text, self.LabelFive.text, self.LabelNine.text ]];
